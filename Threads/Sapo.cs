@@ -7,6 +7,8 @@ namespace Aula2
     {
         int id, distanciaPulo, distanciaPercorrida, distanciaCorrida;
         
+        static object travador = new object(); // Pra dar lock(), precisa de um objeto estático travador
+        
         public static List<int> Vencedores = new List<int>();
         
         public Sapo (int id, int distanciaPulo, int distanciaCorrida) { // Bob o Construtor
@@ -31,7 +33,7 @@ namespace Aula2
         }
         
         public void Ganha () {
-            lock (this) { // Já que o sapo manipula uma lista compartilhada entre todos os sapos, dá um lock na função pra não ter corrupção da lista
+            lock (travador) { // Já que o sapo manipula uma lista compartilhada entre todos os sapos, dá um lock na função pra não ter corrupção da lista
                 Vencedores.Add(id);
                 Console.WriteLine($"==== Sapo {id} ganhou em {Vencedores.Count}o lugar! ===="); 
             }
