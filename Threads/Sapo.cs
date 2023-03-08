@@ -31,8 +31,7 @@ namespace Aula2
         }
         
         public void Ganha () {
-            lock (this) {
-                Console.WriteLine($"==== Sapo {id} está se adicionando na lista... ===="); 
+            lock (this) { // Já que o sapo manipula uma lista compartilhada entre todos os sapos, dá um lock na função pra não ter corrupção da lista
                 Vencedores.Add(id);
                 Console.WriteLine($"==== Sapo {id} ganhou em {Vencedores.Count}o lugar! ===="); 
             }
